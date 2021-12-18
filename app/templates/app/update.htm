@@ -1,0 +1,117 @@
+{% extends 'app/base.html' %} {% load static %} {% block content %}
+<div class="page-content inset">
+    <div class="row ">
+
+        <div class="col-md-12">
+            <h2>Users</h2>
+
+            <table id="data" class="table  table-bordered table-responsive">
+
+                <thead>
+                    <tr>
+
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Update</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        {% for user in users %}
+
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.designation}}</td>
+                        <td>
+                            <a href="{% url 'update' user.id  %}" class="btn btn-primary">  
+           Update</a>
+
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+
+
+
+
+
+                    <tbody>
+
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<div class="container text-center ">
+    <div class="page-content inset">
+        <div class="row">
+
+
+
+            <ul class="pagination">
+                {% if users.has_previous %}
+                <li><a href="?page={{users.previous_page_number}}">Previous</a></li>
+                {% endif %} {% for page in pages %} {% if users.number == page %}
+                <li class="active"><span>{{ page }} <span class="sr-only">(current)</span></span>
+                </li>
+                {% else %}
+                <li><a href="?page={{ page }}">{{ page }}</a></li>
+                {% endif %} {% endfor %} {% if users.has_next %}
+                <li><a href="?page={{users.next_page_number}}">Next</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<a id="link" href="?entry=6&?page=2">5</a>
+<div class="col-md-4"></div>
+<div class="col-md-5">
+
+    <form action="">
+
+        <label for="entry">Select number of entries per page:</label>
+        <select name="entries" id="entry" onchange="demo()">
+            <option value="nothing" selected="selected">Select the option</option>
+            
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="10">100</option>
+          
+          </form>
+          </div>
+        
+          
+          </div>
+      
+    {% endblock content %}
+
+    {% block script %}
+    <script>
+  
+    
+      function demo(){
+      
+        var link=document.getElementById('link')
+        
+        var entry=$('#entry :selected').text();
+        alert(entry)
+        
+     
+     
+    }
+  </script>
+     
+  {% endblock script %}

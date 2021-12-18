@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %} {% load static %} 
+
+{% block content %} 
+
+
+ <div id="wrapper" class="active">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul id="sidebar_menu" class="sidebar-nav">
+            <li class="sidebar-brand"><a id="menu-toggle" href="#">Users<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+        </ul>
+        <ul class="sidebar-nav" id="sidebar">
+            <li><a href="{% url 'manage' %}">Manage <span class="sub_icon glyphicon glyphicon-pencil"></span></a></li>
+
+        </ul>
+    </div>
+  
+    {% if messages %} {% for msg in messages %}
+
+    <p {% if msg.tags %}class="alert alert-{{msg.tags}} mb-3" {% endif %}>{{msg}}</p>
+
+
+    {% endfor %} {% endif %} 
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-md-6 ">
+
+                <!-- Page content -->
+                <div id="page-content-wrapper">
+                    <!-- Keep all page content within the page-content inset div! -->
+                    <div class="page-content inset">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--     <p class="well lead">An Experiment using the sidebar template from startbootstrap.com which I integrated in my website (<a href="http://animeshmanglik.name">animeshmanglik.name</a>)</p>-->
+                                <p class="well lead text-center">Add Users</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" method="post">
+                    <!--{{myform.as_p}} -->
+                    {% csrf_token %} {% for fm in form %}
+                    <div class="form-group my-5 mx-5">
+                        {{fm.label_tag}}{{fm}} <small class="text-warning">{{fm.errors|striptags}}
+                                           </small>
+
+
+                    </div>
+
+                    {% endfor %}
+                    <input type="submit" value="Add" class="btn btn-info my-1"> {% if login.non_field_errors %} {% for error in login.non_field_errors %}
+
+                    <p class="alert alert-danger my-3">{{error}}</p>
+
+                    {% endfor %} {% endif %}
+                </form>
+
+
+
+            </div>
+
+
+        </dv>
+    </dv>
+  </div>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+
+
+
+
+
+
+
+
+{% endblock content %}

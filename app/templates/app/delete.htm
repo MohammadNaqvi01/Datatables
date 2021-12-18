@@ -1,0 +1,107 @@
+{% extends 'app/base.html' %} {% load static %} {% block content %}
+
+
+<div id="wrapper" class="active">
+
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul id="sidebar_menu" class="sidebar-nav">
+            <li class="sidebar-brand"><a id="menu-toggle" href="/">Users<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+        </ul>
+        <ul class="sidebar-nav" id="sidebar">
+            <li><a href="{% url 'add' %}">Add <span class="sub_icon glyphicon glyphicon-plus"></span></a></li>
+            <li><a href="{% url 'manage' %}">Manage<span class="glyphicon glyphicon-pencil"></span></a></li>
+
+        </ul>
+    </div>
+
+
+
+
+    {% if messages %} {% for msg in messages %}
+
+    <p {% if msg.tags %}class="alert alert-{{msg.tags}} mb-3" {% endif %}>{{msg}}</p>
+
+
+    {% endfor %} {% endif %}
+
+    <div class="page-content inset">
+        <div class="row ">
+
+            <div class="col-md-12">
+                <h2>Users</h2>
+
+                <table class="table  table-bordered table-responsive">
+
+                    <thead>
+                        <tr>
+
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Delete</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+
+
+                            <td>{{users.id}}</td>
+                            <td>{{users.name}}</td>
+                            <td>{{users.designation}}</td>
+                            <td>
+                                <form action="{% url 'delete' users.id  %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+
+
+
+
+
+
+                        <tbody>
+
+
+                </table>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <div class="container text-center ">
+        <div class="page-content inset">
+            <div class="row">
+
+
+
+                <ul class="pagination">
+                    {% if users.has_previous %}
+                    <li><a href="?page={{users.previous_page_number}}">Previous</a></li>
+                    {% endif %} {% for page in pages %} {% if users.number == page %}
+                    <li class="active"><span>{{ page }} <span class="sr-only">(current)</span></span>
+                    </li>
+                    {% else %}
+                    <li><a href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %} {% endfor %} {% if users.has_next %}
+                    <li><a href="?page={{users.next_page_number}}">Next</a></li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
